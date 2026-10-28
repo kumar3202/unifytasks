@@ -713,6 +713,20 @@ export default {
 
       if (path === "/status") return await status(env);
 
+      if (path === "/privacy") {
+        return new Response(
+          "UnifyTasks privacy policy: this app syncs your own tasks between Google Tasks and Microsoft To Do. Task data is only read and written to sync your two accounts. Login tokens are stored in the owner's private Cloudflare database. No data is shared or sold.",
+          { headers: { "Content-Type": "text/plain" } }
+        );
+      }
+
+      if (path === "/terms") {
+        return new Response(
+          "UnifyTasks terms of service: this is a personal project provided as is, without warranty. Use it at your own risk. Keep your own backup of important tasks.",
+          { headers: { "Content-Type": "text/plain" } }
+        );
+      }
+
       const adminRoutes: Record<string, () => Promise<Response>> = {
         "/setup": () => setupDefaultPair(env),
         "/sync": async () => json(await runSync(env)),
